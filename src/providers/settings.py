@@ -7,8 +7,8 @@ from configparser import ConfigParser
 from utils.constants import SETTINGS_FILE, SETTINGS_HOST, SETTINGS_PORT, SETTINGS_REST, \
     SETTINGS_PROTOCOL, SETTINGS_ATTRIBUTES, SETTINGS_NODE_ID
 
-parser = ConfigParser()
-settings = parser.read(SETTINGS_FILE)
+settings = ConfigParser()
+settings.read(SETTINGS_FILE)
 
 
 def get_rest_protocol():

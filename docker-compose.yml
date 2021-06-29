@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  blockchain:
+    container_name: blockchain_container
+    build: .
+    ports:
+      - "5556:5556"
+    volumes:
+      - .:/app # Refresh code in updates
+    networks:
+      blockchain_net:
+
+networks:
+  blockchain_net:
+    driver: bridge

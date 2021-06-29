@@ -42,7 +42,7 @@ def mine():
         return response, STATUS_NOT_FOUND
 
     # We run the proof of work algorithm to get the next proof
-    last_block = blockchain.last_block
+    last_block = blockchain.last_block()
     proof = blockchain.proof_of_work(last_block[PROOF])
 
     # We must recieve a reward for find the proof.

@@ -74,7 +74,7 @@ class Blockchain(object):
             'amount': amount
         })
 
-        return self.last_block['index'] + 1
+        return self.last_block()['index'] + 1
 
     def proof_of_work(self, last_proof):
         '''
@@ -132,7 +132,7 @@ class Blockchain(object):
         # Get and check the chains from all the nodes in our network
         responses = requester.get_chains(self.nodes)
         for response in responses:
-            if chain != DEFAULT_DICT:
+            if response != DEFAULT_DICT:
                 length = response[LENGTH]
                 chain = response[CHAIN]
                 # Check if the chain is longer and valid
@@ -150,9 +150,9 @@ class Blockchain(object):
         Return the last block (most recent) in the chain
         :return: <dict> the last block in the chain
         """
-        return DEFAULT_BLOCK if len(self.chain) else self.chain[-1]
+        return DEFAULT_BLOCK if not len(self.chain) else self.chain[-1]
 
-    def hash(block):
+    def hash(self, block):
         '''
         Creates a SHA-256 hash of a block
         :param block: <dict> block
@@ -163,7 +163,7 @@ class Blockchain(object):
         block_string = json.dumps(block, sort_keys=True).encode()
         return hashlib.sha256(block_string).hexdigest()
 
-    def valid_proof(last_proof, proof):
+    def valid_proof(self, last_proof, proof):
         '''
         Validates the proof: does hash(last_proof, proof) contains leading 4 zeros ?
         :param last_proof: <int> previous proof
