@@ -9,7 +9,7 @@
 </p>
 </h1>
 
-It consists of a simplified but fundamental implementation of a blockchain node, just like the hydrogen atom is.
+A simplified but fundamental implementation of a blockchain node, just like the hydrogen atom is.
 
 ## Getting Started
 
