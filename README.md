@@ -28,15 +28,16 @@ A simplified but fundamental implementation of a blockchain node, just like the 
 2. Create virtual enviroment:
 
 ```bash
-python -m venv venv
+   python -m venv venv
 ```
 
 3. Use virtual enviroment:
+
    3.1. In Windows, use:
    ```
       .\venv\Scripts\Activate.ps1
    ```
-   3.2. In Linux:
+   3.2. In Linux, use:
 
    ```bash
       source venv
@@ -50,12 +51,12 @@ python -m venv venv
 
 4. Run node:
 
-   4.1. Use host and port by command line
+   4.1. Use host and port by command line:
 
    ```bash
       python src/main.py <host> <port>
    ```
-   4.2. Use host and port in ```settings.ini```
+   4.2. Use host and port in ```settings.ini```:
 
    ```bash
       python src/main.py
