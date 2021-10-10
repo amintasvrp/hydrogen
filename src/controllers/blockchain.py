@@ -18,7 +18,7 @@ CHAIN = "chain"
 
 class Blockchain(object):
     def __init__(self):
-        self.chain = []
+        self.chain = [DEFAULT_BLOCK]
         self.current_transactions = []
         self.nodes = set()
 
@@ -46,7 +46,7 @@ class Blockchain(object):
         :return: <dict> New block
         '''
         block = {
-            'index': len(self.chain) + 1,
+            'index': self.last_block()['index'] + 1,
             'timestamp': time(),
             'transactions': self.current_transactions,
             'proof': proof,
