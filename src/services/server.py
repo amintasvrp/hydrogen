@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from providers.settings import get_node_id
 from controllers.blockchain import Blockchain
-from utils.constants import DEFAULT_NODE_ID, ENDPOINT_CHAIN, ENDPOINT_MINE, ENDPOINT_NODES_REGISTER, \
+from utils.constants import DEFAULT_NODE_ID, ENDPOINT_CHAIN, ENDPOINT_MINE, ENDPOINT_NODES, ENDPOINT_NODES_REGISTER, \
     ENDPOINT_NODES_RESOLVE, ENDPOINT_TRANSACTIONS, MESSAGE_ADD_NODES, MESSAGE_ADD_TRANSACTION, MESSAGE_BLOCK_FORGED, MESSAGE_CHAIN_NOT_UPDATED, MESSAGE_CHAIN_UPDATED, MESSAGE_INVALID_NODES, \
     MESSAGE_MISSING_VALUES, MESSAGE_TRANSACTIONS_NOT_FOUND, STATUS_BAD_REQUEST, STATUS_CREATED, \
     STATUS_NOT_FOUND, STATUS_OK
@@ -105,6 +105,22 @@ def full_chain():
         'length': len(blockchain.chain)
     }
     return jsonify(response), STATUS_OK
+
+
+# Return the network nodes set
+
+
+@app.route(ENDPOINT_NODES, methods=['GET'])
+def get_nodes():
+    response = {
+        'nodes': list(blockchain.nodes),
+        'length': len(blockchain.nodes)
+    }
+    return jsonify(response), STATUS_OK
+
+
+# Register networks nodes to this node
+# Needed to run consensus algorithim
 
 
 @app.route(ENDPOINT_NODES_REGISTER, methods=['POST'])
