@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img width="20%" src="https://pbs.twimg.com/profile_images/1141801192898670592/pUymJNol.png" />
+  <img width="20%" src="./docs/logo.png" />
   <br />
   Hydrogen
   <br></br>
