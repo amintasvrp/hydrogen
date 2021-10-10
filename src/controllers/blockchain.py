@@ -74,7 +74,7 @@ class Blockchain(object):
             'amount': amount
         })
 
-        return self.last_block()['index'] + 1
+        return len(self.chain)
 
     def proof_of_work(self, last_proof):
         '''
