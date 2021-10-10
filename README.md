@@ -25,17 +25,42 @@ A simplified but fundamental implementation of a blockchain node, just like the 
    git clone https://github.com/amintasvrp/hydrogen.git
 ```
 
-2. Install dependencies:
+2. Create virtual enviroment:
+
+```bash
+   python -m venv venv
+```
+
+3. Use virtual enviroment:
+
+   3.1. In Windows, use:
+   ```
+      .\venv\Scripts\Activate.ps1
+   ```
+   3.2. In Linux, use:
+
+   ```bash
+      source venv
+   ```
+
+3. Install dependencies:
 
 ```bash
    pip install -r requirements.txt
 ```
 
-3. Run node:
+4. Run node:
 
-```bash
-   python src/main.py
-```
+   4.1. Use host and port by command line:
+
+   ```bash
+      python src/main.py <host> <port>
+   ```
+   4.2. Use host and port in ```settings.ini```:
+
+   ```bash
+      python src/main.py
+   ```
 
 ### **Contributing**
 
