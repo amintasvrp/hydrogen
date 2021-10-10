@@ -32,6 +32,7 @@ blockchain = Blockchain()
 
 # Mine a new block
 
+
 @app.route(ENDPOINT_MINE, methods=['GET'])
 def mine():
     height = len(blockchain.current_transactions)
@@ -41,6 +42,9 @@ def mine():
         }
         return response, STATUS_NOT_FOUND
 
+    # Update node blockchain with other network nodes
+    blockchain.resolve_conficts()
+     
     # We run the proof of work algorithm to get the next proof
     last_block = blockchain.last_block()
     proof = blockchain.proof_of_work(last_block[PROOF])
@@ -142,6 +146,9 @@ def register_nodes():
         'nodes': list(blockchain.nodes)
     }
     return jsonify(response), STATUS_CREATED
+
+
+# Run consensus algorithim 
 
 
 @app.route(ENDPOINT_NODES_RESOLVE, methods=['GET'])
