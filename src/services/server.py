@@ -1,8 +1,7 @@
 from flask import Flask, jsonify, request
-from providers.settings import get_node_id
 from controllers.blockchain import Blockchain
 from utils.constants import DEFAULT_NODE_ID, ENDPOINT_CHAIN, ENDPOINT_MINE, ENDPOINT_NODES, ENDPOINT_NODES_REGISTER, \
-    ENDPOINT_NODES_RESOLVE, ENDPOINT_TRANSACTIONS, MESSAGE_ADD_NODES, MESSAGE_ADD_TRANSACTION, MESSAGE_BLOCK_FORGED, MESSAGE_CHAIN_NOT_UPDATED, MESSAGE_CHAIN_UPDATED, MESSAGE_INVALID_NODES, \
+    ENDPOINT_NODES_RESOLVE, ENDPOINT_RANK, ENDPOINT_TRANSACTIONS, MESSAGE_ADD_NODES, MESSAGE_ADD_TRANSACTION, MESSAGE_BLOCK_FORGED, MESSAGE_CHAIN_NOT_UPDATED, MESSAGE_CHAIN_UPDATED, MESSAGE_INVALID_NODES, \
     MESSAGE_MISSING_VALUES, MESSAGE_TRANSACTIONS_NOT_FOUND, STATUS_BAD_REQUEST, STATUS_CREATED, \
     STATUS_NOT_FOUND, STATUS_OK
 
@@ -24,7 +23,7 @@ NODES = "nodes"
 app = Flask(__name__)
 
 # Generate a globally unique address for this node
-NODE_ID = get_node_id()
+NODE_ID = None
 
 # Instantiate blockchain
 blockchain = Blockchain()
@@ -171,5 +170,7 @@ def consensus():
 
 
 # Run API
-def run_server(host, port):
+def run_server(host, port, node_id):
+    global NODE_ID
+    NODE_ID = node_id
     app.run(host=host, port=port)
