@@ -168,6 +168,19 @@ def consensus():
 
     return jsonify(response), STATUS_OK
 
+# Rank nodes according to the amount
+
+@app.route(ENDPOINT_RANK, methods=['GET'])
+def rank():
+    blockchain.resolve_conficts()
+
+    rank = blockchain.rank_nodes()
+    
+    response = {
+        'rank': rank
+    }
+
+    return jsonify(response), STATUS_OK
 
 # Run API
 def run_server(host, port, node_id):
