@@ -4,7 +4,7 @@ from time import time
 from urllib.parse import urlparse
 import providers.requester as requester
 from utils.exceptions import InvalidNetlocException
-from utils.constants import DEFAULT_BLOCK, DEFAULT_DICT, DEFAULT_STRING, DEFAULT_ARRAY
+from utils.constants import DEFAULT_BLOCK, DEFAULT_DICT, DEFAULT_NODE_ID, DEFAULT_STRING, DEFAULT_ARRAY
 
 '''
 BLOCKCHAIN SERVICE
@@ -47,14 +47,14 @@ class Blockchain(object):
         '''
         block = {
             'index': self.last_block()['index'] + 1,
-            'timestamp': time(),
-            'transactions': self.current_transactions,
+            'timestamp': int(time()),
+            'transactions': self.current_transactions.copy(),
             'proof': proof,
             'previous_hash': previous_hash or self.hash(self.chain[-1])
         }
 
         # Reset the current list of transactions
-        self.current_transactions = DEFAULT_ARRAY
+        self.current_transactions = []
 
         self.chain.append(block)
         return block
@@ -170,3 +170,27 @@ class Blockchain(object):
         '''
         hash = hashlib.sha256(f'{last_proof}{proof}'.encode()).hexdigest()
         return hash[:4] == '0000'
+
+    def rank_nodes(self):
+        '''
+        Get the value of each node according to the transactions of each block in the chain.
+        '''
+        rank = {}
+        for block in self.chain:
+            for transaction in block["transactions"]:
+                sender = transaction["sender"]
+                recipient = transaction["recipient"]
+                amount = transaction["amount"]
+                if sender != DEFAULT_NODE_ID:
+                    if sender in rank.keys():
+                        rank[sender] -= amount
+                    else:
+                        rank[sender] = amount * (-1)
+                if recipient != DEFAULT_NODE_ID:
+                    if recipient in rank.keys():
+                        rank[recipient] += amount
+                    else:
+                        rank[recipient] = amount
+
+        return sorted([{"node": node, "amount": amount} for node, amount in rank.items()], key=lambda n: n['amount'], reverse=True)
+

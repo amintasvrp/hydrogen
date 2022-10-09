@@ -24,6 +24,7 @@ DEFAULT_BLOCK = {
 Endpoints Constants
 """
 
+ENDPOINT_RANK = "/rank"
 ENDPOINT_CHAIN = "/chain"
 ENDPOINT_MINE = "/mine"
 ENDPOINT_TRANSACTIONS = "/transactions/new"
