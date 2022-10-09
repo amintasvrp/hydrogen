@@ -125,7 +125,6 @@ class Blockchain(object):
         '''
 
         # Searching for chains longer than ours
-        new_chain = DEFAULT_ARRAY
         max_length = len(self.chain)
         updated = False
 
@@ -138,11 +137,10 @@ class Blockchain(object):
                 # Check if the chain is longer and valid
                 if length > max_length and self.valid_chain(chain):
                     max_length = length
-                    new_chain = chain
+                    # Replace our chain if we realise a new, valid and longer than ours
+                    self.chain = chain
                     updated = True
 
-        # Replace our chain if we realise a new, valid and longer than ours
-        self.chain = new_chain
         return updated
 
     def last_block(self):
